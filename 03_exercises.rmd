@@ -12,7 +12,7 @@ output:
 
 
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
+knitr::opts_chunk$set(echo = TRUE, error=TRUE, message=FALSE, warning=FALSE)
 ```
 
 ```{r libraries}
@@ -321,6 +321,8 @@ Trips %>%
   mutate(date = as_date(sdate))
 ```
   
+  Not sure how to continue on 
+  
   18. Use a join operation to make a table with only those trips whose departures match those top ten station-date combinations from the previous part.
   
 ```{r}
@@ -346,6 +348,13 @@ This problem uses the data from the Tidy Tuesday competition this week, `kids`. 
 
   21. In this exercise, you are going to try to replicate the graph below, created by Georgios Karamanis. I'm sure you can find the exact code on GitHub somewhere, but **DON'T DO THAT!** You will only be graded for putting an effort into this problem. So, give it a try and see how far you can get without doing too much googling. HINT: use `facet_geo()`. The graphic won't load below since it came from a location on my computer. So, you'll have to reference the original html on the moodle page to see it.
   
-![](kids_data_karamanis.jpeg)
-
+```{r}
+kids %>% 
+  mutate(start_inf =if_else(year == 1997, inf_adj_perchild, NA_real_),
+         end_inf = if_else(year == 2016, inf_adj_perchild, NA_real_)) %>% 
+  ggplot(aes(x = year, y = inf_adj_perchild)) +
+  geom_line() +
+  facet_geo(~ state)
+```
+  
 **DID YOU REMEMBER TO UNCOMMENT THE OPTIONS AT THE TOP?**
